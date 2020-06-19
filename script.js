@@ -30,3 +30,8 @@ mark.calculateAge();
 console.log(john.__proto__)
 console.log(jane.lastName)
 console.log(mark.lastName)
+
+console.log(john.hasOwnProperty('job'))
+console.log(john.hasOwnProperty('lastName'))
+console.log(john instanceof Person)
+console.info(john)
