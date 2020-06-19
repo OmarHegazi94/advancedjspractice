@@ -205,37 +205,121 @@
 // Closures
 
 
-function retirement(retirementAge) {
-    var a = ' years left until retirment.'
-    return function (yearOfBirth) {
-        var age = 2020 - yearOfBirth;
-        console.log(retirementAge - age + a);
-    }
-}
+// function retirement(retirementAge) {
+//     var a = ' years left until retirment.'
+//     return function (yearOfBirth) {
+//         var age = 2020 - yearOfBirth;
+//         console.log(retirementAge - age + a);
+//     }
+// }
 
-var USRetirement = retirement(66)(2005);
-var GermanyRetirement = retirement(65)(2000);
-var IclandRetirement = retirement(67)(1998);
-
-
+// var USRetirement = retirement(66)(2005);
+// var GermanyRetirement = retirement(65)(2000);
+// var IclandRetirement = retirement(67)(1998);
 
 
-function interviewQuestion(job) {
-    var designerString = ' Can you please explain what UX design is?';
-    var teacherString = 'What subject do you teach ';
-    var randomString = ' what do you do?';
 
-    return function(name) {
-        if (job === 'designer') {
-            console.log(name + designerString)
-        } else if (job === 'teacher') {
-            console.log(teacherString + name + ' ?')
-        } else {
-            console.log('Hello ' + name + randomString)
+
+// function interviewQuestion(job) {
+//     var designerString = ' Can you please explain what UX design is?';
+//     var teacherString = 'What subject do you teach ';
+//     var randomString = ' what do you do?';
+
+//     return function(name) {
+//         if (job === 'designer') {
+//             console.log(name + designerString)
+//         } else if (job === 'teacher') {
+//             console.log(teacherString + name + ' ?')
+//         } else {
+//             console.log('Hello ' + name + randomString)
+//         }
+//     }
+
+// }
+
+
+// interviewQuestion('teacher')('Mark')
+
+
+
+
+// Bind, call and apply
+
+var john = {
+    name: 'John',
+    age: 33,
+    job: 'teacher',
+    presentation: function(style, timeOfDay) {
+        if(style === 'formal') {
+            console.log('Good ' + timeOfDay + ', Ladies and gentlemen! ' + ' I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old.');
+        } else if(style === 'friendly') {
+            console.log('Hey! What\'s up? I\'m ' + this.name + ', I\'m a ' + this.job + ' and I\'m ' + this.age + ' years old. Have a nice ' + timeOfDay)
         }
     }
+};
 
+var emily = {
+    name: 'Emily',
+    age: 35,
+    job: 'designer'
+};
+
+
+john.presentation('formal', 'morning');
+
+// Method Borrowing , first argument to set the this keyword for the object you want it to borrow the method
+john.presentation.call(emily, 'friendly', 'after noon')
+
+
+// same thing but the second argument is an array of argument
+john.presentation.apply(emily, ['formal', 'afternoon']);
+
+
+
+// Bind creates a copy of a function with a preset argument
+
+var johnFriendly = john.presentation.bind(john, 'friendly');
+
+johnFriendly('morning');
+johnFriendly('night');
+
+var emilyFormal = john.presentation.bind(emily, 'formal')
+
+emilyFormal('afternoooooon')
+
+
+
+
+
+
+
+
+
+var years = [1994, 1343, 1334, 2000, 2015];
+
+function arrayClac(arr, fn) {
+    var arrRes = [];
+
+    for(var i = 0; i< arr.length; i++){
+        arrRes.push(fn(arr[i]));
+    }
+
+    return arrRes;
+}
+
+function calculateAge(el) {
+    return 2020 - el;
+}
+
+function isFullAge(limit, el) {
+    return el >= limit;
 }
 
 
-interviewQuestion('teacher')('Mark')
+var ages = arrayClac(years, calculateAge);
+
+
+var fullJapan = arrayClac(ages, isFullAge.bind(this, 20));
+
+console.log(ages)
+console.log(fullJapan)
