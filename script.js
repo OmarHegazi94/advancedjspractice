@@ -103,38 +103,76 @@
 // Passing functions as arguments
 
 
-var years = [1994, 1343, 1334, 2000, 2015];
+// var years = [1994, 1343, 1334, 2000, 2015];
 
-function arrayClac(arr, fn) {
-    var arrRes = [];
+// function arrayClac(arr, fn) {
+//     var arrRes = [];
 
-    for(var i = 0; i< arr.length; i++){
-        arrRes.push(fn(arr[i]));
-    }
+//     for(var i = 0; i< arr.length; i++){
+//         arrRes.push(fn(arr[i]));
+//     }
 
-    return arrRes;
-}
+//     return arrRes;
+// }
 
-function calculateAge(el) {
-    return 2020 - el;
-}
+// function calculateAge(el) {
+//     return 2020 - el;
+// }
 
-function isFullAge(el) {
-    return el >= 18;
-}
+// function isFullAge(el) {
+//     return el >= 18;
+// }
 
-function maxHeartRate(el) {
-    if(el >= 18 && el <= 21){
-        return Math.round(206.9 - (0.67 * el));
+// function maxHeartRate(el) {
+//     if(el >= 18 && el <= 21){
+//         return Math.round(206.9 - (0.67 * el));
+//     } else {
+//         return -1
+//     }
+// }
+
+// var ages = arrayClac(years, calculateAge);
+// var fullages = arrayClac(ages, isFullAge);
+// var rates = arrayClac(ages, maxHeartRate);
+
+// console.log(ages);
+// console.log(fullages);
+// console.log(rates);
+
+
+
+// Functions returning functions
+
+function interviewQuestion(job) {
+    if(job === 'designer') {
+        return function(name){
+            console.log(name + ' Can you please explain what UX design is?')
+        }
+    } else if (job === 'teacher'){
+        return function(name = 'koko'){
+            // console.log('What subject do you teach ' + name + ' ?')
+            return function(field) {
+                console.log('What subject do you teach ' + name + ' in the ' + field + ' bussiness ?')
+            }
+        }
     } else {
-        return -1
+        return function(name) {
+            console.log('Hello ' + name + ' what do you do?')
+        }
     }
 }
 
-var ages = arrayClac(years, calculateAge);
-var fullages = arrayClac(ages, isFullAge);
-var rates = arrayClac(ages, maxHeartRate);
+// interview question will return anynomous function which then we will pass the name that's required for the anynoums function
+var teacherQuestion = interviewQuestion('teacher');
+var designerQuestion = interviewQuestion('designer')
 
-console.log(ages);
-console.log(fullages);
-console.log(rates);
+
+teacherQuestion('John')
+designerQuestion('John')
+
+
+// Other way
+interviewQuestion('teacher')('Mark');
+
+// calling the function and passing params to the nested functions
+interviewQuestion('teacher')()('arabic');
