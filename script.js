@@ -187,15 +187,55 @@
 
 // game();
 
-(function () {
-    var score = Math.random() * 10;
-    console.log(score >= 5)
-})();
+// (function () {
+//     var score = Math.random() * 10;
+//     console.log(score >= 5)
+// })();
 
-// console.log(score)
+// // console.log(score)
 
 
-(function (goodluck) {
-    var score = Math.random() * 10;
-    console.log(score >= 5 - goodluck)
-})(5);
+// (function (goodluck) {
+//     var score = Math.random() * 10;
+//     console.log(score >= 5 - goodluck)
+// })(5);
+
+
+
+// Closures
+
+
+function retirement(retirementAge) {
+    var a = ' years left until retirment.'
+    return function (yearOfBirth) {
+        var age = 2020 - yearOfBirth;
+        console.log(retirementAge - age + a);
+    }
+}
+
+var USRetirement = retirement(66)(2005);
+var GermanyRetirement = retirement(65)(2000);
+var IclandRetirement = retirement(67)(1998);
+
+
+
+
+function interviewQuestion(job) {
+    var designerString = ' Can you please explain what UX design is?';
+    var teacherString = 'What subject do you teach ';
+    var randomString = ' what do you do?';
+
+    return function(name) {
+        if (job === 'designer') {
+            console.log(name + designerString)
+        } else if (job === 'teacher') {
+            console.log(teacherString + name + ' ?')
+        } else {
+            console.log('Hello ' + name + randomString)
+        }
+    }
+
+}
+
+
+interviewQuestion('teacher')('Mark')
