@@ -143,36 +143,59 @@
 
 // Functions returning functions
 
-function interviewQuestion(job) {
-    if(job === 'designer') {
-        return function(name){
-            console.log(name + ' Can you please explain what UX design is?')
-        }
-    } else if (job === 'teacher'){
-        return function(name = 'koko'){
-            // console.log('What subject do you teach ' + name + ' ?')
-            return function(field) {
-                console.log('What subject do you teach ' + name + ' in the ' + field + ' bussiness ?')
-            }
-        }
-    } else {
-        return function(name) {
-            console.log('Hello ' + name + ' what do you do?')
-        }
-    }
-}
+// function interviewQuestion(job) {
+//     if(job === 'designer') {
+//         return function(name){
+//             console.log(name + ' Can you please explain what UX design is?')
+//         }
+//     } else if (job === 'teacher'){
+//         return function(name = 'koko'){
+//             // console.log('What subject do you teach ' + name + ' ?')
+//             return function(field) {
+//                 console.log('What subject do you teach ' + name + ' in the ' + field + ' bussiness ?')
+//             }
+//         }
+//     } else {
+//         return function(name) {
+//             console.log('Hello ' + name + ' what do you do?')
+//         }
+//     }
+// }
 
-// interview question will return anynomous function which then we will pass the name that's required for the anynoums function
-var teacherQuestion = interviewQuestion('teacher');
-var designerQuestion = interviewQuestion('designer')
-
-
-teacherQuestion('John')
-designerQuestion('John')
+// // interview question will return anynomous function which then we will pass the name that's required for the anynoums function
+// var teacherQuestion = interviewQuestion('teacher');
+// var designerQuestion = interviewQuestion('designer')
 
 
-// Other way
-interviewQuestion('teacher')('Mark');
+// teacherQuestion('John')
+// designerQuestion('John')
 
-// calling the function and passing params to the nested functions
-interviewQuestion('teacher')()('arabic');
+
+// // Other way
+// interviewQuestion('teacher')('Mark');
+
+// // calling the function and passing params to the nested functions
+// interviewQuestion('teacher')()('arabic');
+
+
+// IIFE
+
+// function game() {
+//     var score = Math.random * 10;
+//     console.log(score >= 5)
+// }
+
+// game();
+
+(function () {
+    var score = Math.random() * 10;
+    console.log(score >= 5)
+})();
+
+// console.log(score)
+
+
+(function (goodluck) {
+    var score = Math.random() * 10;
+    console.log(score >= 5 - goodluck)
+})(5);
